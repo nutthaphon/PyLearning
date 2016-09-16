@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 
 # Import classes from your brand new package
 from Animals import Mammals
