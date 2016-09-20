@@ -8,7 +8,12 @@ class MySpider(scrapy.Spider):
     # Your spider definition
     name = 'blogspider'
     start_urls = ['https://blog.scrapinghub.com']
-
+    
+    custom_settings = {
+        'DOWNLOAD_DELAY': '0',
+        'COOKIES_ENABLED': 'True',
+    }
+    
     def parse(self, response):
         for title in response.css('h2.entry-title'):
             yield {'title': title.css('a ::text').extract_first()}
@@ -16,9 +21,6 @@ class MySpider(scrapy.Spider):
         next_page = response.css('div.prev-post > a ::attr(href)').extract_first()
         if next_page:
             yield scrapy.Request(response.urljoin(next_page), callback=self.parse)
-        
-        #print("Existing settings: %s" % self.settings.attributes.keys())
-        
         
 
 configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
