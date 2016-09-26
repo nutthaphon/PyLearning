@@ -1,6 +1,7 @@
 
 from scrapy.settings import Settings
 
+
 setting1 = Settings()
 
 

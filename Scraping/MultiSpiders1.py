@@ -1,6 +1,7 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
 
+
 class MySpider1(scrapy.Spider):
     # Your first spider definition
     name = 'blogspider'

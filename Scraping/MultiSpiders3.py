@@ -1,7 +1,8 @@
 import scrapy
-from twisted.internet import reactor, defer
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.log import configure_logging
+from twisted.internet import reactor, defer
+
 
 class MySpider1(scrapy.Spider):
     # Your first spider definition
