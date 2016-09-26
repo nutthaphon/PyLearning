@@ -9,10 +9,7 @@ class MySpider(scrapy.Spider):
     name = 'blogspider'
     start_urls = ['https://blog.scrapinghub.com']
     
-    custom_settings = {
-        'DOWNLOAD_DELAY': '0',
-        'COOKIES_ENABLED': 'True',
-    }
+
     
     def parse(self, response):
         for title in response.css('h2.entry-title'):
