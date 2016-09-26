@@ -5,6 +5,7 @@ Created on Sep 19, 2016
 '''
 import scrapy
 
+
 class BlogSpider(scrapy.Spider):
     name = 'blogspider'
     start_urls = ['https://blog.scrapinghub.com']
