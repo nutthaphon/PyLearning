@@ -16,11 +16,6 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.utils.log import configure_logging
 
 
-stock_list = {'ADVANC', 'INTUCH', 'CPF'}
-start_urls = []
-
-for item in stock_list:
-    start_urls.append("http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=" + item)
 
 class SettradeSpider(scrapy.Spider):
     
@@ -32,8 +27,13 @@ class SettradeSpider(scrapy.Spider):
         'Referer': 'http://www.settrade.com/C13_FastQuoteChart.jsp?stockSymbol=CPF&symbolType=s',
         'Accept-Encoding': 'gzip, deflate, sdch'}
     
+    def __init__(self, urls):
+        # self.urls = test
+        pass
+    
     def start_requests(self):
-        for u in start_urls:
+        
+        for u in self.urls:   
             yield scrapy.Request(u, 
                                  callback=self.parse_httpbin,
                                  errback=self.errback_httpbin,
@@ -67,13 +67,6 @@ class SettradeSpider(scrapy.Spider):
             request = failure.request
             self.logger.error('TimeoutError on %s', request.url)
             
-
-process = CrawlerProcess({
-    'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'
-})
-
-process.crawl(SettradeSpider)
-process.start() # the script will block here until the crawling is finished
 
 
 
