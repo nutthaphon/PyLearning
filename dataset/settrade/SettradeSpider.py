@@ -21,19 +21,24 @@ class SettradeSpider(scrapy.Spider):
     
 
     name = "settrade_dataset"
-
+    
     settrade_headers={
         'Accept-Language': 'en-US,en;q=0.8,th;q=0.6',
         'Referer': 'http://www.settrade.com/C13_FastQuoteChart.jsp?stockSymbol=CPF&symbolType=s',
         'Accept-Encoding': 'gzip, deflate, sdch'}
     
-    def __init__(self, urls):
-        # self.urls = test
-        pass
+    def __init__(self, *args, **kwargs):
+        super(SettradeSpider, self).__init__(*args, **kwargs)
+        
+        if 'start_urls' in kwargs:
+            print "found with =>", kwargs['start_urls']
+        else:
+            print "not found with =>" , self.start_urls
+            
     
     def start_requests(self):
-        
-        for u in self.urls:   
+        #print "another arg:", args
+        for u in self.start_urls:   
             yield scrapy.Request(u, 
                                  callback=self.parse_httpbin,
                                  errback=self.errback_httpbin,
