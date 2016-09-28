@@ -46,7 +46,15 @@ class SettradeSpider(scrapy.Spider):
 
     def parse_httpbin(self, response):
         self.logger.info('Got successful response from {}'.format(response.url))
-        print response.body;
+        #print response.body;
+        l=1
+        for row in response.body.splitlines():
+
+            if l>1: #Skip 1st row
+                cols = row.split(',')
+                print cols
+                #print "Date=", cols[0] ,", Fruit=", cols[1], ", Amount=", cols[2]
+            l+=1
 
     def errback_httpbin(self, failure):
         # log all failures
