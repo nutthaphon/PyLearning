@@ -17,7 +17,6 @@ from scrapy.utils.log import configure_logging
 
 class SettradeSpider(scrapy.Spider):
     
-
     name = "settrade_dataset"
     
     settrade_headers={
@@ -28,14 +27,17 @@ class SettradeSpider(scrapy.Spider):
     def __init__(self, *args, **kwargs):
         super(SettradeSpider, self).__init__(*args, **kwargs)
         
+        print "KWARGS =>", kwargs
         if 'start_urls' in kwargs:
-            print "found with =>", kwargs['start_urls']
+            print "Found start_urls in KWARGS =>", kwargs['start_urls']
+            self.start_urls = kwargs['start_urls'].split(',')
         else:
-            print "not found with =>" , self.start_urls
+            print "Not found start_urls in KWARGS"
             
     
     def start_requests(self):
-        #print "another arg:", args
+        print "Loop of start_urls:", self.start_urls 
+
         for u in self.start_urls:   
             yield scrapy.Request(u, 
                                  callback=self.parse_httpbin,
@@ -48,9 +50,10 @@ class SettradeSpider(scrapy.Spider):
         self.logger.info('Got successful response from {}'.format(response.url))
         #print response.body;
         l=1
-        for row in response.body.splitlines():
-
-            if l>1: #Skip 1st row
+        EachLineBody = response.body.splitlines()
+        for row in EachLineBody:
+            #print "Row length=", len(row)
+            if l > 1 and len(row) > 0: #Skip 1st row 
                 cols = row.split(',')
                 print cols
                 #print "Date=", cols[0] ,", Fruit=", cols[1], ", Amount=", cols[2]
