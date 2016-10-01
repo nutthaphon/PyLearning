@@ -18,16 +18,18 @@ from dataset.settrade.spiders.SettradeSpider import SettradeSpider
 # Online retrieve stock symbol from settrade
 stock=QueryStockSymbol()
 stock.StartReactor()
+
+'http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol='
 '''
 
-stock_list = {'ADVANC', 'INTUCH', 'CPF'}
+stock_list = ['ADVANC','INTUCH','CPF']
 
-urls = []
+#";".join(["%s=%s" % (k, v) for k, v in params.items()])  ',stock'`
 
-for item in stock_list:
-    urls.append("http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=" + item)
+urls = ",".join(["http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=%s" % stock for stock in stock_list])
 
-global start_urls
+print "URLS=",urls
+#quit()
 
 spider1 = SettradeSpider()
 
@@ -41,6 +43,7 @@ d = runner.crawl(spider1, start_urls=urls)
 d.addBoth(lambda _: reactor.stop()) #@UndefinedVariable
 reactor.run() #@UndefinedVariable the script will block here until the crawling is finished
 
+#-a start_urls=''http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=INTUCH','http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=CPF','http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=ADVANC''
 '''
 process = CrawlerProcess({
             'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'

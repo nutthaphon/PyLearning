@@ -24,11 +24,13 @@ stock.StartReactor()
 
 stock_list = ['ADVANC','INTUCH','CPF']
 
-urls = ",".join(['http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol='+`stock` for stock in stock_list])
-#print ','.join([`num` for num in xrange(10)])
-print "URLS=",urls
+#";".join(["%s=%s" % (k, v) for k, v in params.items()])  ',stock'`
 
-    
+urls = ",".join(["http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=%s" % stock for stock in stock_list])
+
+print "URLS=",urls
+#quit()
+
 spider1 = SettradeSpider()
 
 configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
@@ -47,6 +49,6 @@ process = CrawlerProcess({
             'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'
         })
         
-process.crawl(spider1, start_urls="'http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=INTUCH','http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=CPF','http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=ADVANC'")
+process.crawl(spider1, start_urls=urls)
 process.start() # the script will block here until the crawling is finished
 

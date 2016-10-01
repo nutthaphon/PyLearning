@@ -2,6 +2,12 @@
 Created on Sep 26, 2016
 
 @author: nutt
+
+Example of Scrapy command with arguments
+$ scrapy crawl settrade_dataset -a start_urls=''http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=INTUCH','http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=CPF','http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=ADVANC''
+
+Example of job argument on Scrapinghub
+start_urls => http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=INTUCH,http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=CPF,http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol=ADVANC
 '''
 
 import scrapy
