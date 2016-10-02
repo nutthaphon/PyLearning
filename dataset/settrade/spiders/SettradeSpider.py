@@ -19,6 +19,7 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.log import configure_logging
 
+from dataset.settrade.ThinkSpeakChannels import UpdateChannelFeed
 
 
 class SettradeSpider(scrapy.Spider):
@@ -51,6 +52,7 @@ class SettradeSpider(scrapy.Spider):
                                  method='GET',
                                  headers=self.settrade_headers,
                                  dont_filter=False)
+        
 
     def parse_httpbin(self, response):
         self.logger.info('Got successful response from {}'.format(response.url))
@@ -64,7 +66,10 @@ class SettradeSpider(scrapy.Spider):
                 print cols
                 #print "Date=", cols[0] ,", Fruit=", cols[1], ", Amount=", cols[2]
             l+=1
-
+        
+        #ts=UpdateChannelFeed(query='api_key=QX8WJQHT10DRQ144&field1=10&field2=20&field3=30')
+        #ts.StartReactor()
+    
     def errback_httpbin(self, failure):
         # log all failures
         self.logger.error(repr(failure))

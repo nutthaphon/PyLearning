@@ -45,5 +45,5 @@ class UpdateChannelFeed:
         
         reactor.run()           #@UndefinedVariable
         
-ts=UpdateChannelFeed(query='api_key=QX8WJQHT10DRQ144&field1=10&field2=20&field3=30')
-ts.StartReactor()
+#ts=UpdateChannelFeed(query='api_key=QX8WJQHT10DRQ144&field1=10&field2=20&field3=30')
+#ts.StartReactor()
