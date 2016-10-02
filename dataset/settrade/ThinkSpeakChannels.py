@@ -3,42 +3,28 @@ Created on Oct 2, 2016
 
 @author: nutt
 '''
-from pprint import pformat
+
 from twisted.internet import reactor
-from twisted.web.client import Agent, Response, readBody
-from twisted.web.http_headers import Headers
-from twisted.internet.defer import Deferred
-from twisted.internet.protocol import Protocol
-from decor.Asterisk_Parameter_Arguments import args
+from twisted.web.client import Agent,  readBody
 
 class UpdateChannelFeed:
     
     def __init__(self, *args, **kwargs):
-        super(UpdateChannelFeed, self).__init__(*args, **kwargs)
+
         print "KWARGS =>", kwargs
         if 'query' in kwargs:
             print "Found query in KWARGS =>", kwargs['query']
-            self.query = kwargs['query'].split(',')
+            self.query = kwargs['query']
         else:
             print "Not found query in KWARGS"
             
     def cbBody(self, body):
-        print('Response body:')
-        stock_list = body.split(',')
-        print('No. of Stock is ', len(stock_list))
-        print(stock_list)
+        if body == '0':
+            print 'Fail to update data!'
+        else:
+            print 'Update completed.'
         
     def cbRequest(self, response):
-        #print 'Response version:', response.version
-        #print 'Response code:', response.code
-        #print 'Response phrase:', response.phrase
-        #print 'Response headers:'
-        #print pformat(list(response.headers.getAllRawHeaders()))
-        
-        #finished = Deferred()
-        #response.deliverBody(BeginningPrinter(finished))
-        #print "Return: " + response.deliverBody
-        #print stock_dict.stockname
         d = readBody(response)
         d.addCallback(self.cbBody)
         return d
@@ -49,7 +35,6 @@ class UpdateChannelFeed:
     
     def StartReactor(self):
         agent = Agent(reactor)
-        # https://api.thingspeak.com/update?api_key=QX8WJQHT10DRQ144&field1=0
         d = agent.request(
             'GET',
             'https://api.thingspeak.com/update?'+self.query,
@@ -60,5 +45,5 @@ class UpdateChannelFeed:
         
         reactor.run()           #@UndefinedVariable
         
-
-
+ts=UpdateChannelFeed(query='api_key=QX8WJQHT10DRQ144&field1=10&field2=20&field3=30')
+ts.StartReactor()
