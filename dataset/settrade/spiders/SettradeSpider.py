@@ -19,7 +19,7 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.log import configure_logging
 
-from dataset.settrade.ThinkSpeakChannels import UpdateChannelFeed
+#from dataset.settrade.ThinkSpeakChannels import UpdateChannelFeed
 
 
 class SettradeSpider(scrapy.Spider):
