@@ -14,11 +14,15 @@ class StackSpider(Spider):
 
     def parse(self, response):
         questions = Selector(response).xpath('//div[@class="post-item-title"]')
-        print "zzzzzzzzzzzzzzzzzzz"
+        
         for question in questions:
             item = StackItem()
-            item['title'] = question.xpath(
-                'a[@class="question-hyperlink"]/text()').extract()[0]
-            item['url'] = question.xpath(
-                'a[@class="question-hyperlink"]/@href').extract()[0]
+            item['title'] = question.xpath('//div[@class="post-item-title"]').innerText
+            print item['title']
+            #    $x("//div[@class=\"post-item-title\"]")[0].innerText
+            #item['url'] = question.xpath(
+            #    'a[@class="question-hyperlink"]/@href').extract()[0]
             yield item
+
+
+
