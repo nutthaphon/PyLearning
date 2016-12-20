@@ -19,6 +19,7 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.log import configure_logging
 
+from settrade.items import SettradeItem
 #from dataset.settrade.ThinkSpeakChannels import UpdateChannelFeed
 
 

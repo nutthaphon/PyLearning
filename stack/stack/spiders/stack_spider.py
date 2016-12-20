@@ -13,7 +13,7 @@ class StackSpider(Spider):
 
     def parse(self, response):
         questions = Selector(response).xpath('//div[@class="summary"]/h3')
-
+        print questions
         for question in questions:
             item = StackItem()
             item['title'] = question.xpath(
