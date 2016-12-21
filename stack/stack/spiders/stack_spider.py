@@ -17,11 +17,10 @@ class StackSpider(Spider):
         
         for question in questions:
             item = StackItem()
-            item['title'] = question.xpath('//div[@class="post-item-title"]').innerText
+            item['title'] = question.xpath('a/@href')
             print item['title']
             #    $x("//div[@class=\"post-item-title\"]")[0].innerText
-            #item['url'] = question.xpath(
-            #    'a[@class="question-hyperlink"]/@href').extract()[0]
+            #item['url'] = question.xpath('a[@class="question-hyperlink"]/@href').extract()[0]
             yield item
 
 
