@@ -23,6 +23,7 @@ class MongoDBPipeline(object):
         )
         db = connection[settings['MONGODB_DB']]
         self.collection = db[settings['MONGODB_COLLECTION']]
+        print "MongoDB connected."
 
     def process_item(self, item, spider):
         valid = True
