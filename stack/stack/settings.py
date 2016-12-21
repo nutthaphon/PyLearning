@@ -14,7 +14,7 @@ BOT_NAME = 'stack'
 SPIDER_MODULES = ['stack.spiders']
 NEWSPIDER_MODULE = 'stack.spiders'
 
-ITEM_PIPELINES = ['stack.pipelines.MongoDBPipeline', ]
+ITEM_PIPELINES = ['stack.pipelines.MongoDBPipeline' ]
 
 MONGODB_SERVER = "10.0.2.129"
 MONGODB_PORT = 27017
