@@ -17,8 +17,8 @@ class StackSpider(Spider):
         
         for question in questions:
             item = StackItem()
-            item['title'] = question.xpath('a/@href')
-            item['url'] = question.xpath('a/@href')
+            item['title'] = question.xpath('a/@href').extract()[0]
+            item['url'] = question.xpath('a/@href').extract()[0]
             #print "Topic link = %s" % item['title']
             #    $x("//div[@class=\"post-item-title\"]")[0].innerText
             #item['url'] = question.xpath('a[@class="question-hyperlink"]/@href').extract()[0]
