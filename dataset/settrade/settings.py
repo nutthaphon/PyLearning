@@ -69,7 +69,7 @@ ROBOTSTXT_OBEY = True
 #    'dataset.pipelines.SomePipeline': 300,
 #}
 ITEM_PIPELINES = {
-    'stack.pipelines.MongoDBPipeline': 300,
+    'settrade.pipelines.MongoDBPipeline': 300,
 }
 
 MONGODB_SERVER = '203.154.166.98'
