@@ -61,13 +61,14 @@ class SettradeSpider(scrapy.Spider):
         
         reader = csv.reader(response.body.split('\n'), delimiter=',')
         for row in reader:
-            if row.line_num == 1:
+            '''if row.line_num == 1:
                 print "", list(row)
             elif row.line_num == 2:
                 print "Header=>" , list(row)
             else:
                 print list(row)
-        
+                '''
+            print row
         '''
         #print response.body;
         l=1
