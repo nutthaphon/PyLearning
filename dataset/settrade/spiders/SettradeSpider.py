@@ -61,9 +61,9 @@ class SettradeSpider(scrapy.Spider):
         
         reader = csv.reader(response.body.split('\n'), delimiter=',')
         for i, row in enumerate(reader):
-            if i == 1:
-                print "", row
-            elif i == 2:
+            if i == 0:
+                print "Stock=>", row
+            elif i == 1:
                 print "Header=>" , row
             else:
                 print row
