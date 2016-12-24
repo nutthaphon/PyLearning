@@ -60,15 +60,15 @@ class SettradeSpider(scrapy.Spider):
         self.logger.info('Got successful response from {}'.format(response.url))
         
         reader = csv.reader(response.body.split('\n'), delimiter=',')
-        for row in reader:
-            '''if row.line_num == 1:
-                print "", list(row)
-            elif row.line_num == 2:
-                print "Header=>" , list(row)
+        for i, row in enumerate(reader):
+            if i == 1:
+                print "", row
+            elif i == 2:
+                print "Header=>" , row
             else:
-                print list(row)
-                '''
-            print row
+                print row
+                
+            #print row
         '''
         #print response.body;
         l=1
