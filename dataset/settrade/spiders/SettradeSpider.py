@@ -11,7 +11,8 @@ start_urls => http://www.settrade.com/servlet/IntradayStockChartDataServlet?symb
 '''
 
 import scrapy
-
+import csv
+import json
 from twisted.internet.error import DNSLookupError
 from twisted.internet.error import TimeoutError, TCPTimedOutError
 from scrapy.spidermiddlewares.httperror import HttpError
@@ -57,8 +58,21 @@ class SettradeSpider(scrapy.Spider):
 
     def parse_httpbin(self, response):
         self.logger.info('Got successful response from {}'.format(response.url))
+        
+        reader = csv.reader(response.body.split('\n'), delimiter=',')
+        for row in reader:
+            if row.line_num == 1:
+                print "", list(row)
+            elif row.line_num == 2:
+                print "Header=>" , list(row)
+            else:
+                print list(row)
+        
+        '''
         #print response.body;
         l=1
+        
+        
         EachLineBody = response.body.splitlines()
         for row in EachLineBody:
             #print "Row length=", len(row)
@@ -67,7 +81,7 @@ class SettradeSpider(scrapy.Spider):
                 print cols
                 #print "Date=", cols[0] ,", Fruit=", cols[1], ", Amount=", cols[2]
             l+=1
-        
+        '''
         #ts=UpdateChannelFeed(query='api_key=QX8WJQHT10DRQ144&field1=10&field2=20&field3=30')
         #ts.StartReactor()
     

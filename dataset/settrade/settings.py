@@ -68,6 +68,14 @@ ROBOTSTXT_OBEY = True
 #ITEM_PIPELINES = {
 #    'dataset.pipelines.SomePipeline': 300,
 #}
+ITEM_PIPELINES = {
+    'stack.pipelines.MongoDBPipeline': 300,
+}
+
+MONGODB_SERVER = '203.154.166.98'
+MONGODB_PORT = 3389
+MONGODB_DB = 'settrade'
+MONGODB_COLLECTION = 'intuch'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

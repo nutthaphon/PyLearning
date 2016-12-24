@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//dataset/settrade/items.py=utf-8
+encoding//dataset/settrade/pipelines.py=utf-8
 encoding//dataset/settrade/settings.py=utf-8
 encoding//stack/stack/pipelines.py=utf-8
 encoding//stack/stack/settings.py=utf-8
