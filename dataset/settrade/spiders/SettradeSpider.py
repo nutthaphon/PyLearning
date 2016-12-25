@@ -58,7 +58,7 @@ class SettradeSpider(scrapy.Spider):
 
     def parse_httpbin(self, response):
         self.logger.info('Got successful response from {}'.format(response.url))
-        
+        csv_header = [];
         reader = csv.reader(response.body.split('\n'), delimiter=',')
         for i, row in enumerate(reader):
             if i == 0:
