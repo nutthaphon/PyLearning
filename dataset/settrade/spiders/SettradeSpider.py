@@ -65,10 +65,14 @@ class SettradeSpider(scrapy.Spider):
                 print "Stock=>", row
             elif i == 1:
                 print "Header=>" , row
+                csv_header = row
             else:
                 print row
                 
-            #print row
+            item = SettradeItem()
+            for j,col in enumerate(row):
+                item[csv_header[j]] = col
+            yield item
         '''
         #print response.body;
         l=1
