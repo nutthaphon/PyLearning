@@ -37,7 +37,6 @@ class MongoDBPipeline(object):
             #print "document ", item , " importing.. to ", stock_collection
             self.collection = self.db[stock_collection]
             self.collection.insert(dict(item))
-            log.msg("Question added to MongoDB database!",
-                    level=log.DEBUG, spider=spider)
+            #log.msg("Question added to MongoDB database!", level=log.DEBUG, spider=spider)
         return item
 
