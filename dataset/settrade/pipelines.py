@@ -22,8 +22,8 @@ class MongoDBPipeline(object):
             settings['MONGODB_SERVER'],
             settings['MONGODB_PORT']
         )
-        db = connection[settings['MONGODB_DB']]
-        self.collection = db[settings['MONGODB_COLLECTION']]
+        self.db = connection[settings['MONGODB_DB']]
+        #self.collection = db[settings['MONGODB_COLLECTION']]
         print "MongoDB connected."
 
     def process_item(self, item, spider):
@@ -33,7 +33,9 @@ class MongoDBPipeline(object):
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         if valid:
-            self.collection.insert(dict(item))
+            document = item[1:]
+            self.collection = self.db[settings[item[0]]]
+            self.collection.insert(dict(document))
             log.msg("Question added to MongoDB database!",
                     level=log.DEBUG, spider=spider)
         return item

@@ -63,6 +63,7 @@ class SettradeSpider(scrapy.Spider):
         for i, row in enumerate(reader):
             if i == 0:
                 print "Stock=>", row
+                stock = row[0]
             elif i == 1:
                 print "Header=>" , row
                 csv_header = ['UpdateDT', 'Prior', 'Last', 'Chg', 'Volume', 'Value', 'AccTotalVol', 'AccTotalVal'] 
@@ -70,6 +71,7 @@ class SettradeSpider(scrapy.Spider):
                 print row
                 item = SettradeItem()
                 print csv_header
+                item['Collection'] = stock
                 for j,col in enumerate(row):
                     print "j=", j, ", col=", col, "\n"
                     item[csv_header[j]] = col

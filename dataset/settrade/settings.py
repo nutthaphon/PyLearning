@@ -75,7 +75,7 @@ ITEM_PIPELINES = {
 MONGODB_SERVER = '203.154.166.98'
 MONGODB_PORT = 3389
 MONGODB_DB = 'settrade'
-MONGODB_COLLECTION = 'intuch'
+#MONGODB_COLLECTION = 'intuch'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
