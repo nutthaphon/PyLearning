@@ -35,7 +35,7 @@ class MongoDBPipeline(object):
         if valid:
             stock_collection = item.pop('StockCollection')
             print "document ", item , " importing.. to ", stock_collection
-            self.collection = self.db[settings[stock_collection]]
+            self.collection = self.db[settings['intuch']]
             self.collection.insert(dict(item))
             log.msg("Question added to MongoDB database!",
                     level=log.DEBUG, spider=spider)
