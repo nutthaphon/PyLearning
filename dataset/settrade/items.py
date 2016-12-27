@@ -10,7 +10,7 @@ from scrapy.item import Item, Field
 class SettradeItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    Collection = Field()
+    StockCollection = Field()
     UpdateDT = Field()
     Prior = Field()
     Last = Field()

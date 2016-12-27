@@ -71,7 +71,7 @@ class SettradeSpider(scrapy.Spider):
             else:
                 print row
                 item = SettradeItem()
-                item['Collection'] = stock
+                item['StockCollection'] = stock
                 for j,col in enumerate(row):
                     print "j=", j, ", col=", col, "\n"
                     item[csv_header[j]] = col
