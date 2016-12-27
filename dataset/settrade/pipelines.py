@@ -37,8 +37,8 @@ class MongoDBPipeline(object):
             update_datetime = dict(UpdateDT=item.get('UpdateDT'))
             #print "document ", item , " importing.. to ", stock_collection
             self.collection = self.db[stock_collection]
-            self.collection.update_many(update_datetime, dict(item), upsert=True)
-                   
+            result = self.collection.replace_one(update_datetime, dict(item), True)
+            print "Updated= ", result.modified_count, " or Insert New= ", result.upserted_id       
             #log.msg("Question added to MongoDB database!", level=log.DEBUG, spider=spider)
         return item
 
