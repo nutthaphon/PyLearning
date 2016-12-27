@@ -34,7 +34,7 @@ class MongoDBPipeline(object):
                 raise DropItem("Missing {0}!".format(data))
         if valid:
             stock_collection = item.pop('StockCollection')
-            print "document ", item , " importing.. to ", stock_collection
+            #print "document ", item , " importing.. to ", stock_collection
             self.collection = self.db[stock_collection]
             self.collection.insert(dict(item))
             log.msg("Question added to MongoDB database!",
