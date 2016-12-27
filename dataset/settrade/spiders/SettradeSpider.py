@@ -62,15 +62,15 @@ class SettradeSpider(scrapy.Spider):
         reader = csv.reader(response.body.split('\n'), delimiter=',')
         for i, row in enumerate(reader):
             if i == 0:
-                print "Stock=>", row
                 stock = row[0]
-            elif i == 1:
-                print "Header=>" , row
+                print "Stock=>", stock
+            elif i == 1: # Skip default header
+                #print "Header=>" , row
                 csv_header = ['UpdateDT', 'Prior', 'Last', 'Chg', 'Volume', 'Value', 'AccTotalVol', 'AccTotalVal'] 
+                print csv_header
             else:
                 print row
                 item = SettradeItem()
-                print csv_header
                 #item['Collection'] = stock
                 for j,col in enumerate(row):
                     print "j=", j, ", col=", col, "\n"
