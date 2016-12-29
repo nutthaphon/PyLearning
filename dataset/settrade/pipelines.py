@@ -50,14 +50,14 @@ class MongoDBPipeline(object):
                     "UpdateDT": dt
                 },
                 {
-                    u'AccTotalVal': float(item['AccTotalVal']),
-                    u'AccTotalVol': float(item['AccTotalVol']),
-                    u'Chg': float(item['Chg']),
-                    u'Last': float(item['Last']),
-                    u'Prior': float(item['Prior']),
+                    u'AccTotalVal': float(item['AccTotalVal']) if item['AccTotalVal'].strip() else None,
+                    u'AccTotalVol': float(item['AccTotalVol']) if item['AccTotalVal'].strip() else None,
+                    u'Chg': float(item['Chg']) if item['AccTotalVal'].strip() else None,
+                    u'Last': float(item['Last']) if item['AccTotalVal'].strip() else None,
+                    u'Prior': float(item['Prior']) if item['AccTotalVal'].strip() else None,
                     u'UpdateDT': dt,
-                    u'Value': float(item['Value']),
-                    u'Volume': float(item['Volume'])
+                    u'Value': float(item['Value']) if item['AccTotalVal'].strip() else None,
+                    u'Volume': float(item['Volume']) if item['AccTotalVal'].strip() else None
                 },
                 True)
             print "Updated= ", result.modified_count, " or Insert New= ", result.upserted_id       
