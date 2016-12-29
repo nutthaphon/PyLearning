@@ -5,6 +5,9 @@ from scrapy.conf import settings
 from scrapy.exceptions import DropItem
 from scrapy import log
 
+from bson.objectid import ObjectId
+
+from datetime import datetime, date, time
 
 # Define your item pipelines here
 #
@@ -35,14 +38,26 @@ class MongoDBPipeline(object):
                 raise DropItem("Missing {0}!".format(data))
         if valid:
             stock_collection = item.pop('StockCollection')
-            update_dt_iso = '$ISODate("' + item.get('UpdateDT') + '")$' #"2016-12-27T09:50:00.000+07:00"
-            #update_datetime_filter = dict(UpdateDT=update_dt_iso) 
-            update_datetime_filter='{\'UpdateDT\': '+update_dt_iso+'}'
-
-            item['UpdateDT'] = update_dt_iso
+            
+            dt = datetime.strptime(item.get('UpdateDT'), "%d/%m/%Y %H:%M:%S")
+            
             #print "document ", item , " importing.. to ", stock_collection
             self.collection = self.db[stock_collection]
-            result = self.collection.replace_one(update_datetime_filter, dict(item), True)
+            #result = self.collection.replace_one(update_datetime_filter, dict(item), True)
+            
+            result = self.collection.replace_one(
+                {"UpdateDT": dt},
+                {
+                    u'AccTotalVal': item['AccTotalVal'],
+                    u'AccTotalVol': item['AccTotalVol'],
+                    u'Chg': item['Chg'],
+                    u'Last': item['Last'],
+                    u'Prior': item['Prior'],
+                    u'UpdateDT': dt,
+                    u'Value': item['Value'],
+                    u'Volume': item['Volume']
+                },
+                False)
             print "Updated= ", result.modified_count, " or Insert New= ", result.upserted_id       
             #log.msg("Question added to MongoDB database!", level=log.DEBUG, spider=spider)
         return item

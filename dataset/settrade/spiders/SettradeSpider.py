@@ -74,12 +74,14 @@ class SettradeSpider(scrapy.Spider):
                 item['StockCollection'] = stock
                 for j,col in enumerate(row): #row= ['27/12/2016 09:50:00', '49.25', '49.25', '', '0', '', '0', '']
                     #print "j=", j, ", col=", col, "\n"
-                    if j == 0: #Convert UpdateDT to ISO format
+                    '''if j == 0: #Convert UpdateDT to ISO format
                         dt = datetime.strptime(col, "%d/%m/%Y %H:%M:%S")
                         dtz = dt.isoformat()+'.000+07:00'      #"2016-12-27T09:50:00.000+07:00"
                         item[csv_header[j]] = dtz
                     else:
                         item[csv_header[j]] = col
+                    '''
+                    item[csv_header[j]] = col
                 yield item
         '''
         #print response.body;
