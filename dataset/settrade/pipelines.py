@@ -37,7 +37,7 @@ class MongoDBPipeline(object):
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
         
-        if not item.get('UpdateDT').strip():
+        if not item.get('UpdateDT'):
             valid = False
             raise DropItem("Missing Date/Time!")
         
