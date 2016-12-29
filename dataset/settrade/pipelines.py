@@ -53,7 +53,7 @@ class MongoDBPipeline(object):
             dt1 = bangkok.localize(dt, is_dst=False)
             dt1_utc = dt1.astimezone(utc)
 
-            print "document ", dict(item) , " importing.. to ", stock_collection
+            #print "document ", dict(item) , " importing.. to ", stock_collection
             self.collection = self.db[stock_collection]
             
             result = self.collection.replace_one(
@@ -62,13 +62,13 @@ class MongoDBPipeline(object):
                 },
                 {
                     u'AccTotalVal': float(item['AccTotalVal'].strip()) if len(item['AccTotalVal'].strip()) > 0 else None,
-                    u'AccTotalVol': float(item['AccTotalVol'].strip()) if len(item['AccTotalVal'].strip()) > 0 else None,
-                    u'Chg': float(item['Chg'].strip()) if len(item['AccTotalVal'].strip()) > 0 else None,
-                    u'Last': float(item['Last'].strip()) if len(item['AccTotalVal'].strip()) > 0 else None,
-                    u'Prior': float(item['Prior'].strip()) if len(item['AccTotalVal'].strip()) > 0 else None,
+                    u'AccTotalVol': float(item['AccTotalVol'].strip()) if len(item['AccTotalVol'].strip()) > 0 else None,
+                    u'Chg': float(item['Chg'].strip()) if len(item['Chg'].strip()) > 0 else None,
+                    u'Last': float(item['Last'].strip()) if len(item['Last'].strip()) > 0 else None,
+                    u'Prior': float(item['Prior'].strip()) if len(item['Prior'].strip()) > 0 else None,
                     u'UpdateDT': dt1_utc,
-                    u'Value': float(item['Value'].strip()) if len(item['AccTotalVal'].strip()) > 0 else None,
-                    u'Volume': float(item['Volume'].strip()) if len(item['AccTotalVal'].strip()) > 0 else None
+                    u'Value': float(item['Value'].strip()) if len(item['Value'].strip()) > 0 else None,
+                    u'Volume': float(item['Volume'].strip()) if len(item['Volume'].strip()) > 0 else None
                 },
                 True)
             print "Updated= ", result.modified_count, " or Insert New= ", result.upserted_id       
