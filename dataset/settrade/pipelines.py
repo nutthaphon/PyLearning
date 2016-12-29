@@ -57,7 +57,7 @@ class MongoDBPipeline(object):
                     u'Value': item['Value'],
                     u'Volume': item['Volume']
                 },
-                False)
+                True)
             print "Updated= ", result.modified_count, " or Insert New= ", result.upserted_id       
             #log.msg("Question added to MongoDB database!", level=log.DEBUG, spider=spider)
         return item
