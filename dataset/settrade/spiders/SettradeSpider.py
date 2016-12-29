@@ -22,7 +22,7 @@ from scrapy.utils.log import configure_logging
 
 from settrade.items import SettradeItem
 #from dataset.settrade.ThinkSpeakChannels import UpdateChannelFeed
-
+from datetime import datetime, date, time
 
 class SettradeSpider(scrapy.Spider):
     
@@ -72,9 +72,14 @@ class SettradeSpider(scrapy.Spider):
                 #print row
                 item = SettradeItem()
                 item['StockCollection'] = stock
-                for j,col in enumerate(row):
+                for j,col in enumerate(row): #row= ['27/12/2016 09:50:00', '49.25', '49.25', '', '0', '', '0', '']
                     #print "j=", j, ", col=", col, "\n"
-                    item[csv_header[j]] = col
+                    if j == 0: #Convert UpdateDT to ISO format
+                        dt = datetime.strptime(col, "%d/%m/%Y %H:%M:%S")
+                        dtz = dt.isoformat()+'.000+07:00'      #"2016-12-27T09:50:00.000+07:00"
+                        item[csv_header[j]] = dtz
+                    else:
+                        item[csv_header[j]] = col
                 yield item
         '''
         #print response.body;
