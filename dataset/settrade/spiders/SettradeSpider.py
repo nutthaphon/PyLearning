@@ -46,9 +46,10 @@ class SettradeSpider(scrapy.Spider):
     
     def start_requests(self):
         print "Loop of start_urls:", self.start_urls 
-
+        prefix_url = 'http://www.settrade.com/servlet/IntradayStockChartDataServlet?symbol='
+        
         for u in self.start_urls:   
-            yield scrapy.Request(u, 
+            yield scrapy.Request(prefix_url+u, 
                                  callback=self.parse_httpbin,
                                  errback=self.errback_httpbin,
                                  method='GET',
