@@ -36,12 +36,17 @@ class MongoDBPipeline(object):
             if not data:
                 valid = False
                 raise DropItem("Missing {0}!".format(data))
+        
+        if not item.get('UpdateDT').strip():
+            valid = False
+            raise DropItem("Missing Date/Time!")
+        
         if valid:
             stock_collection = item.pop('StockCollection')
             
             dt = datetime.strptime(item.get('UpdateDT'), "%d/%m/%Y %H:%M:%S")
             
-            #print "document ", item , " importing.. to ", stock_collection
+            print "document ", dict(item) , " importing.. to ", stock_collection
             self.collection = self.db[stock_collection]
             #result = self.collection.replace_one(update_datetime_filter, dict(item), True)
             
