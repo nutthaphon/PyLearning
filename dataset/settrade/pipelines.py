@@ -7,8 +7,10 @@ from scrapy import log
 
 from bson.objectid import ObjectId
 
-from datetime import datetime, date, time
+from datetime import datetime, date, time, timedelta
+from pytz import timezone
 
+import pytz
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -32,6 +34,9 @@ class MongoDBPipeline(object):
 
     def process_item(self, item, spider):
         valid = True
+        utc = pytz.utc
+        bangkok=timezone('Asia/Bangkok')
+
         for data in item:
             if not data:
                 valid = False
@@ -44,15 +49,16 @@ class MongoDBPipeline(object):
         if valid:
             stock_collection = item.pop('StockCollection')
             
-            dt = datetime.strptime(item.get('UpdateDT'), "%d/%m/%Y %H:%M:%S")
-            
+            dt  = datetime.strptime(item.get('UpdateDT'), "%d/%m/%Y %H:%M:%S")
+            dt1 = bangkok.localize(dt, is_dst=False)
+            dt1_utc = dt1.astimezone(utc)
+
             print "document ", dict(item) , " importing.. to ", stock_collection
             self.collection = self.db[stock_collection]
-            #result = self.collection.replace_one(update_datetime_filter, dict(item), True)
             
             result = self.collection.replace_one(
                 {
-                    "UpdateDT": dt
+                    "UpdateDT": dt1_utc
                 },
                 {
                     u'AccTotalVal': float(item['AccTotalVal']) if item['AccTotalVal'].strip() else None,
@@ -60,7 +66,7 @@ class MongoDBPipeline(object):
                     u'Chg': float(item['Chg']) if item['AccTotalVal'].strip() else None,
                     u'Last': float(item['Last']) if item['AccTotalVal'].strip() else None,
                     u'Prior': float(item['Prior']) if item['AccTotalVal'].strip() else None,
-                    u'UpdateDT': dt,
+                    u'UpdateDT': dt1_utc,
                     u'Value': float(item['Value']) if item['AccTotalVal'].strip() else None,
                     u'Volume': float(item['Volume']) if item['AccTotalVal'].strip() else None
                 },
