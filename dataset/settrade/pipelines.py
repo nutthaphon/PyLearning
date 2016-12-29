@@ -46,16 +46,18 @@ class MongoDBPipeline(object):
             #result = self.collection.replace_one(update_datetime_filter, dict(item), True)
             
             result = self.collection.replace_one(
-                {"UpdateDT": dt},
                 {
-                    u'AccTotalVal': item['AccTotalVal'],
-                    u'AccTotalVol': item['AccTotalVol'],
-                    u'Chg': item['Chg'],
-                    u'Last': item['Last'],
-                    u'Prior': item['Prior'],
+                    "UpdateDT": dt
+                },
+                {
+                    u'AccTotalVal': float(item['AccTotalVal']),
+                    u'AccTotalVol': float(item['AccTotalVol']),
+                    u'Chg': float(item['Chg']),
+                    u'Last': float(item['Last']),
+                    u'Prior': float(item['Prior']),
                     u'UpdateDT': dt,
-                    u'Value': item['Value'],
-                    u'Volume': item['Volume']
+                    u'Value': float(item['Value']),
+                    u'Volume': float(item['Volume'])
                 },
                 True)
             print "Updated= ", result.modified_count, " or Insert New= ", result.upserted_id       
