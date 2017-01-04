@@ -1,2 +1,3 @@
 projects:
   default: 141008
+requirements_file: requirements.txt
