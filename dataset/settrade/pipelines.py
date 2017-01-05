@@ -29,8 +29,11 @@ class MongoDBPipeline(object):
             settings['MONGODB_PORT']
         )
         self.db = connection[settings['MONGODB_DB']]
-        #self.collection = db[settings['MONGODB_COLLECTION']]
-        print "MongoDB connected."
+        if self.db.authenticate('mayfly', 'P@ssw0rd1', source='settrade'):
+            print "MongoDB connected."
+        else:
+            print "Cannot connect to MongoDB !"
+            pass
 
     def process_item(self, item, spider):
         valid = True
